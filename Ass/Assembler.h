@@ -97,10 +97,18 @@ public:
 		std::ofstream file;
 		file.exceptions( std::ifstream::failbit | std::ifstream::badbit );
 		file.open( name );
+		file << "v2.0 raw\n";
+		int byteCount = 0;
 		for( auto b : ram )
 		{
 			file << std::hex << std::setfill( '0' ) << std::setw( 2 )
 				<< int( b.value_or( 0 ) ) << " ";
+
+			if( ++byteCount >= 8 )
+			{
+				byteCount = 0;
+				file << "\n";
+			}
 		}
 
 		mout << "Binary image successfully generated." << std::endl;
