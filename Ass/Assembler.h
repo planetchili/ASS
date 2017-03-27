@@ -298,7 +298,13 @@ private:
 		assert( instructions.count( name ) == 0 );
 		instructions.emplace( name,std::make_unique<T>() );
 	}
-	void RegisterAlias( std::string main,std::string alias );
+	void RegisterAlias( std::string main,std::string alias )
+	{
+		assert( instructions.count( alias ) == 0 );
+		// find pair of main mne, get address of the Instruction from unique_ptr
+		instructions.emplace( alias,std::make_unique<AliasInstruction>( 
+			instructions.find( main )->second.get() ) );
+	}
 	template<class T>
 	void RegisterDirective()
 	{

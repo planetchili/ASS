@@ -6,11 +6,6 @@
 #include "Instruction.h"
 #include "Assembler.h"
 
-class AliasInstruction : public Instruction
-{
-
-};
-
 template<unsigned int bits>
 class ImmediateJumpTemplate : public Instruction
 {

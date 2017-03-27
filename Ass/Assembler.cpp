@@ -7,12 +7,9 @@ void Assembler::RegisterOperations()
 	RegisterInstruction<ImmediateJumpTemplate<0b000>>( "je" );
 	RegisterInstruction<ImmediateJumpTemplate<0b001>>( "ja" );
 	RegisterInstruction<ImmediateJumpTemplate<0b010>>( "jb" );
+	RegisterAlias( "jb","jnc" );
 	RegisterInstruction<ImmediateJumpTemplate<0b100>>( "jne" );
 	RegisterInstruction<ImmediateJumpTemplate<0b101>>( "jna" );
 	RegisterInstruction<ImmediateJumpTemplate<0b110>>( "jnb" );
-}
-
-void Assembler::RegisterAlias( std::string main,std::string alias )
-{
-
+	RegisterAlias( "jnb","jc" );
 }
