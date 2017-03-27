@@ -97,6 +97,10 @@ public:
 
 		mout << "Binary image successfully generated." << std::endl;
 	}
+	void AddLabelReference( const std::string& name,int address,int line )
+	{
+
+	}
 
 private:
 	//std::optional<const Symbol&> GetSymbol( const std::string& name ) const
@@ -262,28 +266,25 @@ private:
 			next_it = std::next( it );
 
 			// remove all matching references after writing in address in ram
+			// @@@@@@@@ must use equal_range!!!!!!
 			bool unreferenced = true;
-			auto ir = symbolReferences.find( it->first );
-			if( ir != symbolReferences.end() )
+			auto irp = symbolReferences.equal_range( it->first );
+			while( irp.first != irp.second )
 			{
-				while( ir->first == it->first )
+				if( irp.first->second.GetType() == it->second.GetType() )
 				{
-					if( ir->second.GetType() == it->second.GetType() )
-					{
-						// fill ram with referenced address
-						ram[ir->second.GetAddress()] = it->second.GetAddress();
-						// erase reference
-						unreferenced = false;
-						const auto here = ir++;
-						symbolReferences.erase( here );
-					}
-					else
-					{
-						mout << "Reference <" << ir->first << "> from line ["
-							<< ir->second.GetLine() << "] does not match symbol <"
-							<< it->first << "> defined at line [" << it->second.GetLine()
-							<< "]" << std::endl;
-					}
+					// fill ram with referenced address
+					ram[irp.first->second.GetAddress()] = it->second.GetAddress();
+					// erase reference
+					unreferenced = false;
+					symbolReferences.erase( irp.first++ );
+				}
+				else
+				{
+					mout << "Reference <" << irp.first->first << "> from line ["
+						<< irp.first->second.GetLine() << "] does not match symbol <"
+						<< it->first << "> defined at line [" << it->second.GetLine()
+						<< "]" << std::endl;
 				}
 			}
 			// erase symbol if it was referenced at least once
