@@ -149,6 +149,22 @@ inline bool is_name( const std::string& s )
 		} );
 }
 
+inline bool is_indirect( const std::string& s )
+{
+	return s.size() > 1 &&
+		s.front() == '[' && s.back() == ']';
+}
+
+inline bool try_strip_indirect( std::string& s )
+{
+	if( is_indirect( s ) )
+	{
+		s = std::string( std::next( s.begin() ),std::prev( s.end() ) );
+		return true;
+	}
+	return false;
+}
+
 inline bool is_address( const std::string& s )
 {
 	return s.size() > 1 &&
