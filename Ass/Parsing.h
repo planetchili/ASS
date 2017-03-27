@@ -172,6 +172,16 @@ inline bool is_address( const std::string& s )
 		is_name( s.substr( 1,std::string::npos ) );
 }
 
+inline bool try_strip_address( std::string& s )
+{
+	if( is_address( s ) )
+	{
+		s = std::string( std::next( s.begin() ),s.end() );
+		return true;
+	}
+	return false;
+}
+
 inline bool is_directive( const std::string& s )
 {
 	return s.size() > 1 &&

@@ -63,6 +63,10 @@ public:
 	{
 		symbolReferences.emplace( name,Symbol::MakeLabel( name,line,address ) );
 	}
+	void AddVariableReference( const std::string& name,int address,int line )
+	{
+		symbolReferences.emplace( name,Symbol::MakeVariable( name,line,address ) );
+	}
 	void Assemble( std::string name )
 	{
 		bool error = false;

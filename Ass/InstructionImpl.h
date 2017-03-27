@@ -115,6 +115,7 @@ public:
 	void ProcessParams( Assembler& ass,const std::string& mne,std::string& d,std::string& s,int line ) const
 	{
 		auto s_int_type = int_literal_type( s );
+		bool s_is_address_ref = try_strip_address( s );
 		if( s_int_type != IntLiteralType::Not ) // source is int literal
 		{
 			// operate on register with int literal
@@ -127,6 +128,10 @@ public:
 			ass.Emit( opcode_domain | param_bits );
 			// emit immediate parameter byte
 			ass.Emit( parse_int_literal( s,s_int_type ) );
+		}
+		else if( s_is_address_ref )
+		{
+			ass.AddVariableReference( s,ass.GetAddress(),line );
 		}
 		else if( is_register_name( s ) ) // source is register
 		{
