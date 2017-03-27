@@ -18,8 +18,8 @@ int main( int argc,char* argv[] )
 	// testCode << "jmp label idi ;this will not" << std::endl;
 	testCode << "lobo:" << std::endl;
 	testCode << "jmp lobo ;this will work ;)" << std::endl;
-	testCode << "jne label ;this will work ;)" << std::endl;
-	testCode << "jc lobbo dd ;this will work ;)" << std::endl;
+	testCode << "jnz label ;this will work ;)" << std::endl;
+	// testCode << "jc lobbo dd ;this will work ;)" << std::endl;
 
 	try
 	{

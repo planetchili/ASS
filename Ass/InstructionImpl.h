@@ -6,10 +6,11 @@
 #include "Instruction.h"
 #include "Assembler.h"
 
-template<unsigned int bits>
+template<unsigned int param_bits>
 class ImmediateJumpTemplate : public Instruction
 {
-	static_assert((bits & ~0b111u) == 0u && bits != 0x111u,"bad bits in imm jmp");
+	static_assert((param_bits & ~0b111u) == 0u && param_bits != 0x111u,"bad bits in imm jmp");
+	static constexpr unsigned char opcode_domain = 0b00100000u;
 public:
 	virtual void Process( Assembler& ass,const std::string& mne,std::string& rest,int line ) const override
 	{
@@ -44,7 +45,7 @@ public:
 		}
 
 		// emit opcode byte
-		ass.Emit( bits | 0x20u );
+		ass.Emit( opcode_domain | param_bits );
 
 		// add the references
 		ass.AddLabelReference( t.value(),ass.GetAddress(),line );
