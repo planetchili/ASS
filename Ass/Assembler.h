@@ -239,7 +239,6 @@ private:
 			next_it = std::next( it );
 
 			// remove all matching references after writing in address in ram
-			// @@@@@@@@ must use equal_range!!!!!!
 			bool unreferenced = true;
 			auto irp = symbolReferences.equal_range( it->first );
 			while( irp.first != irp.second )
@@ -258,6 +257,7 @@ private:
 						<< irp.first->second.GetLine() << "] does not match symbol <"
 						<< it->first << "> defined at line [" << it->second.GetLine()
 						<< "]" << std::endl;
+					irp.first++;
 				}
 			}
 			// erase symbol if it was referenced at least once
