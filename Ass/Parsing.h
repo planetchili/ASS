@@ -77,6 +77,30 @@ inline IntLiteralType int_literal_type( const std::string& s )
 	} ) ? IntLiteralType::Dec : IntLiteralType::Not;
 }
 
+inline int parse_int_literal( const std::string& s,IntLiteralType type )
+{
+	switch( type )
+	{
+	case IntLiteralType::Dec:
+		return std::stoi( s );
+		break;
+	case IntLiteralType::Bin:
+		return std::stoi( s.substr( 2,std::string::npos ),0,2 );
+		break;
+	case IntLiteralType::Hex:
+		return std::stoi( s,0,16 );
+		break;
+	default:
+		assert( "bad int literal parse type!" && false );
+		return -1;
+	}
+}
+
+inline int parse_int_literal( const std::string& s )
+{
+	return parse_int_literal( s,int_literal_type( s ) );
+}
+
 inline bool is_label( const std::string& s )
 {
 	return s.size() > 1 &&
