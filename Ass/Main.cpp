@@ -5,6 +5,53 @@
 
 int main( int argc,char* argv[] )
 {
+	// testing int literal detection
+	{
+		std::string num = "31";
+		std::cout << num << ":" << std::boolalpha << is_int_literal( num ) << std::endl;
+	}
+	{
+		std::string num = "0x31";
+		std::cout << num << ":" << std::boolalpha << is_int_literal( num ) << std::endl;
+	}
+	{
+		std::string num = "0b011";
+		std::cout << num << ":" << std::boolalpha << is_int_literal( num ) << std::endl;
+	}
+	{
+		std::string num = "0b3";
+		std::cout << num << ":" << std::boolalpha << is_int_literal( num ) << std::endl;
+	}
+	{
+		std::string num = "0ne4";
+		std::cout << num << ":" << std::boolalpha << is_int_literal( num ) << std::endl;
+	}
+	{
+		std::string num = "0";
+		std::cout << num << ":" << std::boolalpha << is_int_literal( num ) << std::endl;
+	}
+	{
+		std::string num = "a1";
+		std::cout << num << ":" << std::boolalpha << is_int_literal( num ) << std::endl;
+	}
+	{
+		std::string num = "1a";
+		std::cout << num << ":" << std::boolalpha << is_int_literal( num ) << std::endl;
+	}
+	{
+		std::string num = "0x";
+		std::cout << num << ":" << std::boolalpha << is_int_literal( num ) << std::endl;
+	}
+	{
+		std::string num = "0b";
+		std::cout << num << ":" << std::boolalpha << is_int_literal( num ) << std::endl;
+	}
+	{
+		std::string num = "00";
+		std::cout << num << ":" << std::boolalpha << is_int_literal( num ) << std::endl;
+	}
+
+
 	std::stringstream testCode;
 	testCode << "; comment" << std::endl;
 	testCode << "label:" << std::endl;
