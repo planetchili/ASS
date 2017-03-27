@@ -12,6 +12,10 @@ int main( int argc,char* argv[] )
 	testCode << "_1: ;comment" << std::endl;
 	testCode << "" << std::endl;
 	testCode << "def:" << std::endl;
+	testCode << "jmp label ;this will work ;)" << std::endl;
+	testCode << "jmp _1 ;this will work ;)" << std::endl;
+	testCode << "jmp dicks ;this will not" << std::endl;
+	testCode << "jmp label idi ;this will not" << std::endl;
 
 	try
 	{
