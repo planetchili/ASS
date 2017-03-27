@@ -35,16 +35,24 @@ inline std::optional<std::string> extract_token_white( std::string& s )
 	return {};
 }
 
-inline bool is_int_literal( const std::string& s )
+enum class IntLiteralType
+{
+	Not,
+	Dec,
+	Bin,
+	Hex
+};
+
+inline IntLiteralType int_literal_type( const std::string& s )
 {
 	if( s.size() == 0 )
 	{
-		return false;
+		return IntLiteralType::Not;
 	}
 
 	if( !std::isdigit( s.front() ) )
 	{
-		return false;
+		return IntLiteralType::Not;
 	}
 
 	if( s.size() >= 3 )
@@ -54,19 +62,19 @@ inline bool is_int_literal( const std::string& s )
 			return std::all_of( std::next( s.begin(),2 ),s.end(),[]( char c ) {
 				return std::isdigit( c ) || 
 					(std::tolower( c ) >= 'a' && std::tolower( c ) <= 'f');
-			} );
+			} ) ? IntLiteralType::Hex : IntLiteralType::Not;
 		}
 		else if( s[1] == 'b' )
 		{
 			return std::all_of( std::next( s.begin(),2 ),s.end(),[]( char c ) {
 				return c == '0' || c == '1';
-			} );
+			} ) ? IntLiteralType::Bin : IntLiteralType::Not;
 		}
 	}
 
 	return std::all_of( std::next( s.begin() ),s.end(),[]( char c ) {
 		return std::isdigit( c );
-	} );
+	} ) ? IntLiteralType::Dec : IntLiteralType::Not;
 }
 
 inline bool is_label( const std::string& s )
