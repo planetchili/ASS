@@ -82,8 +82,6 @@ public:
 
 		mout << "Source code successfully processed." << std::endl;
 
-		/// resolve dependencies!!!
-		// ////////////////////////
 		ResolveDependencies();
 
 		mout << "Symbol dependencies successfuly resolved." << std::endl;
