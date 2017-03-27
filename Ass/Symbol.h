@@ -15,7 +15,8 @@ public:
 		:
 		name( std::move( donor.name ) ),
 		type( donor.type ),
-		address( donor.address )
+		address( donor.address ),
+		line( donor.line )
 	{}
 	int GetAddress() const { return address; }
 	const std::string& GetName() const { return name; }
@@ -29,11 +30,11 @@ public:
 	}
 	static Symbol MakeVariable( const std::string& name,int line,int address )
 	{
-		return Symbol( name,address,line,Type::Variable );
+		return Symbol( name,line,address,Type::Variable );
 	}
 	static Symbol MakeLabel( const std::string& name,int line,int address )
 	{
-		return Symbol( name,address,line,Type::Label );
+		return Symbol( name,line,address,Type::Label );
 	}
 	bool operator<( const Symbol& other ) const
 	{
