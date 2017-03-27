@@ -291,10 +291,7 @@ private:
 			throw std::exception( msg.str().c_str() );
 		}
 	}
-	void RegisterOperations()
-	{
-		RegisterInstruction<JumpInstruction>();
-	}
+	void RegisterOperations();
 	template<class T>
 	void RegisterInstruction()
 	{

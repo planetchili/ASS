@@ -1,7 +1,6 @@
 #pragma once
 
 #include <string>
-#include "Parsing.h"
 
 class Instruction
 {
@@ -14,24 +13,3 @@ public:
 		return GetName() < other.GetName();
 	}
 };
-
-
-class JumpInstruction : public Instruction
-{
-public:
-	virtual const char* GetName() const override { return "jmp"; }
-	virtual void Process( class Assembler& ass,std::string rest,int line ) const override;
-};
-
-
-//class JumpInstruction : public Instruction
-//{
-//public:
-//	virtual const char* GetName() const override { return name; }
-//	virtual void Process( class Assembler& ass,std::string rest,int line ) const override
-//	{
-//		
-//	}
-//public:
-//	static constexpr char* name = "jmp";
-//};

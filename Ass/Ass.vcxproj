@@ -115,13 +115,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Instruction.cpp" />
+    <ClCompile Include="Assembler.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Assembler.h" />
     <ClInclude Include="Directive.h" />
     <ClInclude Include="Instruction.h" />
+    <ClInclude Include="InstructionImpl.h" />
     <ClInclude Include="Parsing.h" />
     <ClInclude Include="Symbol.h" />
     <ClInclude Include="Trim.h" />
