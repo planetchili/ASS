@@ -197,7 +197,7 @@ private:
 					// process instruction
 					instructions[t.value()]->Process( *this,std::move( line ),lineNum );
 				}
-				else // not instruction; must be a directive!
+				else // not instruction; could be a directive...!
 				{
 					auto d = extract_token_white( line );
 					if( !d.has_value() )

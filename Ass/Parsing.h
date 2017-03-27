@@ -55,10 +55,13 @@ bool is_name( const std::string& s )
 	return s.size() > 0 &&
 		!std::isdigit( s.front() ) &&
 		std::all_of( s.begin(),s.end(),[]( char c )
-	{
-		return std::isalnum( c ) || c == '_';
-	}
-	);
+		{
+			return std::isalnum( c ) || c == '_';
+		} ) &&
+		std::any_of( s.begin(),std::prev( s.end() ),[]( char c )
+		{
+			return std::isalnum( c );
+		} );
 }
 
 bool is_directive( const std::string& s )
