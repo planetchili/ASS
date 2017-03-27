@@ -99,7 +99,7 @@ public:
 	}
 	void AddLabelReference( const std::string& name,int address,int line )
 	{
-
+		symbolReferences.emplace( name,Symbol::MakeLabel( name,line,address ) );
 	}
 
 private:

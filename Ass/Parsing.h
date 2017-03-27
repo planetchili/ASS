@@ -6,7 +6,7 @@
 #include "Trim.h"
 
 
-void strip_comment( std::string& line )
+inline void strip_comment( std::string& line )
 {
 	const auto pos = line.find_first_of( ';' );
 	if( pos != std::string::npos )
@@ -15,7 +15,7 @@ void strip_comment( std::string& line )
 	}
 }
 
-std::optional<std::string> extract_token_white( std::string& s )
+inline std::optional<std::string> extract_token_white( std::string& s )
 {
 	ltrim( s );
 	if( s.size() > 0 )
@@ -35,7 +35,7 @@ std::optional<std::string> extract_token_white( std::string& s )
 	return {};
 }
 
-bool is_label( const std::string& s )
+inline bool is_label( const std::string& s )
 {
 	return s.size() > 1 &&
 		s.back() == ':' &&
@@ -50,7 +50,7 @@ bool is_label( const std::string& s )
 		} );
 }
 
-bool is_name( const std::string& s )
+inline bool is_name( const std::string& s )
 {
 	return s.size() > 0 &&
 		!std::isdigit( s.front() ) &&
@@ -64,7 +64,7 @@ bool is_name( const std::string& s )
 		} );
 }
 
-bool is_directive( const std::string& s )
+inline bool is_directive( const std::string& s )
 {
 	return s.size() > 1 &&
 		s.front() == '.' &&
