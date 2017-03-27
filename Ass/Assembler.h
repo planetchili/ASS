@@ -59,6 +59,10 @@ public:
 	{
 		symbols.emplace( name,Symbol::MakeVariable( name,line,address ) );
 	}
+	void AddLabelReference( const std::string& name,int address,int line )
+	{
+		symbolReferences.emplace( name,Symbol::MakeLabel( name,line,address ) );
+	}
 	void Assemble( std::string name )
 	{
 		bool error = false;
@@ -97,44 +101,8 @@ public:
 
 		mout << "Binary image successfully generated." << std::endl;
 	}
-	void AddLabelReference( const std::string& name,int address,int line )
-	{
-		symbolReferences.emplace( name,Symbol::MakeLabel( name,line,address ) );
-	}
 
 private:
-	//std::optional<const Symbol&> GetSymbol( const std::string& name ) const
-	//{
-	//	const auto i = symbols.find( name );
-	//	if( i != symbols.end() )
-	//	{
-	//		return i->second;
-	//	}
-	//	return {};
-	//}
-	//std::optional<const Symbol&> GetLabel( const std::string& name ) const
-	//{
-	//	const auto i = symbols.find( name );
-	//	if( i != symbols.end() && i->second.GetType() == Symbol::Type::Label )
-	//	{
-	//		return i->second;
-	//	}
-	//	return {};
-	//}
-	//std::optional<const Symbol&> GetVariable( const std::string& name ) const
-	//{
-	//	const auto i = symbols.find( name );
-	//	if( i != symbols.end() && i->second.GetType() == Symbol::Type::Variable )
-	//	{
-	//		return i->second;
-	//	}
-	//	return {};
-	//}
-	//void RemoveSymbol( const std::string& name )
-	//{
-	//	const int n = symbols.erase( name );
-	//	assert( n > 0 );
-	//}
 	void ProcessSourceStream( std::istream& file )
 	{
 		// should maybe rename function if we're doing this?
@@ -324,7 +292,7 @@ private:
 	}
 	void RegisterOperations()
 	{
-
+		RegisterInstruction<JumpInstruction>();
 	}
 	template<class T>
 	void RegisterInstruction()
