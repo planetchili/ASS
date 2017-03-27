@@ -93,7 +93,8 @@ public:
 		file.open( name );
 		for( auto b : ram )
 		{
-			file << std::hex << std::setw( 2 ) << b.value_or( 0 ) << " ";
+			file << std::hex << std::setfill( '0' ) << std::setw( 2 )
+				<< int( b.value_or( 0 ) ) << " ";
 		}
 
 		mout << "Binary image successfully generated." << std::endl;
