@@ -20,11 +20,11 @@ int main( int argc,char* argv[] )
 	testCode << "jmp lobo ;this will work ;)" << std::endl;
 	testCode << "jnz label ;this will work ;)" << std::endl;
 	// testCode << "jc lobbo dd ;this will work ;)" << std::endl;
-	testCode << "add b,0x69" << std::endl;
-	testCode << "sub b,0x27" << std::endl;
-	testCode << "add a,0x21" << std::endl;
+	testCode << "add b  ,  0x69" << std::endl;
+	testCode << "sub b ,0x27 ad" << std::endl;
+	testCode << "add a," << std::endl;
 	testCode << "sub b,a" << std::endl;
-	testCode << "mov a,0x42" << std::endl;
+	testCode << "mov a 0x42" << std::endl;
 
 	try
 	{
