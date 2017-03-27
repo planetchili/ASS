@@ -292,6 +292,7 @@ private:
 		}
 	}
 	void RegisterOperations();
+	// validate for no instruction opcode overlap?
 	template<class T>
 	void RegisterInstruction( std::string name )
 	{
