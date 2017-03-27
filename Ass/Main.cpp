@@ -21,6 +21,7 @@ int main( int argc,char* argv[] )
 	testCode << "jnz label ;this will work ;)" << std::endl;
 	// testCode << "jc lobbo dd ;this will work ;)" << std::endl;
 	testCode << "add b  ,  0x69" << std::endl;
+	testCode << ".org 3" << std::endl;
 	//testCode << "sub b ,0x27 ad" << std::endl;
 	//testCode << "add a," << std::endl;
 	testCode << "sub b,a" << std::endl;

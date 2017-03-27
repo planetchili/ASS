@@ -20,4 +20,5 @@ void Assembler::RegisterOperations()
 	RegisterInstruction<MoveInstruction>( "mov" );
 
 	RegisterDirective<DefineByteDirective>( "db" );
+	RegisterDirective<OriginDirective>( "org" );
 }
