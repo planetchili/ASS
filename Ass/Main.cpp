@@ -9,7 +9,7 @@ int main( int argc,char* argv[] )
 	testCode << "; comment" << std::endl;
 	testCode << "label:" << std::endl;
 	testCode << "   mab_3le:    " << std::endl;
-	testCode << "_: ;comment" << std::endl;
+	testCode << "_1: ;comment" << std::endl;
 	testCode << "" << std::endl;
 	testCode << "def:" << std::endl;
 

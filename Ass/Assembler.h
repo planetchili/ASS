@@ -134,6 +134,9 @@ private:
 	//}
 	void ProcessSourceStream( std::istream& file )
 	{
+		// should maybe rename function if we're doing this?
+		ram.resize( ramsize );
+
 		file.exceptions( std::ifstream::failbit | std::ifstream::badbit );
 		int lineNum = 0;
 		std::string line;
@@ -312,7 +315,7 @@ private:
 	}
 	void ValidateAddress() const
 	{
-		if( address < 0 || address > 255 )
+		if( address < 0 || address >= int( ram.size() ) )
 		{
 			std::stringstream msg;
 			msg << "Assembling address out of bounds: " << std::hex << address;
@@ -343,5 +346,6 @@ private:
 	std::map<std::string,std::unique_ptr<Directive>> directives;
 	std::vector<std::pair<std::string,int>> sourceLines;
 	std::vector<std::optional<unsigned char>> ram;
+	static constexpr int ramsize = 256;
 	int address = 0;
 };
