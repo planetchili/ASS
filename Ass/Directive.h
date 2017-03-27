@@ -5,7 +5,7 @@
 class Directive
 {
 public:
-	virtual ~Directive() = 0;
+	virtual ~Directive() {};
 	virtual void Process( class Assembler& ass,std::string rest,int line ) const = 0;
 	virtual void Process( class Assembler& ass,std::string label,std::string rest,int line ) const
 	{

@@ -298,7 +298,7 @@ private:
 	void RegisterInstruction()
 	{
 		assert( instructions.count( T::name ) == 0 );
-		instructions.emplace( T::name,T{} );
+		instructions.emplace( T::name,std::make_unique<T>() );
 	}
 	template<class T>
 	void RegisterDirective()
