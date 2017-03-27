@@ -292,7 +292,7 @@ private:
 		}
 	}
 	void RegisterOperations();
-	template<class T,typename ... Args>
+	template<class T>
 	void RegisterInstruction( std::string name )
 	{
 		assert( instructions.count( name ) == 0 );
