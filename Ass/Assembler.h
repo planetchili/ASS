@@ -160,6 +160,7 @@ private:
 			}
 			else if( is_name( t.value() ) ) // could be instruction OR labeled directive
 			{
+				// we can't start with an existing symbol
 				if( symbols.count( t.value() ) > 0 )
 				{
 					std::stringstream msg;
