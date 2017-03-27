@@ -6,13 +6,16 @@
 #include "Instruction.h"
 #include "Assembler.h"
 
-template<const char* name,unsigned int bits>
+template<unsigned int bits>
 class ImmediateJumpTemplate : public Instruction
 {
 	static_assert((bits & ~0b111u) == 0u && bits != 0x111u,"bad bits in imm jmp");
-	static_assert(name != nullptr,"give me a name in imm jmp");
 public:
-	virtual const char* GetName() const override { return name; }
+	ImmediateJumpTemplate( std::string mne )
+		:
+		name( mne )
+	{}
+	virtual const char* GetName() const override { return name.c_str(); }
 	virtual void Process( Assembler& ass,std::string rest,int line ) const override
 	{
 		auto t = extract_token_white( rest );
@@ -54,33 +57,6 @@ public:
 		// emit destination placeholder byte
 		ass.Emit( 0xEEu );
 	}
+private:
+	std::string name;
 };
-
-// consider template bullshit for string literal in future
-char mne_jmp[] = "jmp";
-class JmpInstruction : public ImmediateJumpTemplate<mne_jmp,0b011>
-{};
-
-char mne_je[] = "je";
-class JeInstruction : public ImmediateJumpTemplate<mne_je,0b000>
-{};
-
-char mne_ja[] = "ja";
-class JaInstruction : public ImmediateJumpTemplate<mne_ja,0b001>
-{};
-
-char mne_jb[] = "jb";
-class JbInstruction : public ImmediateJumpTemplate<mne_jb,0b010>
-{};
-
-char mne_jne[] = "jne";
-class JneInstruction : public ImmediateJumpTemplate<mne_jne,0b100>
-{};
-
-char mne_jna[] = "jna";
-class JnaInstruction : public ImmediateJumpTemplate<mne_jna,0b101>
-{};
-
-char mne_jnb[] = "jnb";
-class JnbInstruction : public ImmediateJumpTemplate<mne_jnb,0b110>
-{};

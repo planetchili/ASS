@@ -292,10 +292,10 @@ private:
 		}
 	}
 	void RegisterOperations();
-	template<class T>
-	void RegisterInstruction()
+	template<class T,typename ... Args>
+	void RegisterInstruction( Args&& ... args )
 	{
-		auto inst = std::make_unique<T>();
+		auto inst = std::make_unique<T>( args... );
 		const char* name = inst->GetName();
 		assert( instructions.count( name ) == 0 );
 		instructions.emplace( name,std::move( inst ) );
