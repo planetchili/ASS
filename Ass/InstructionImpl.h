@@ -19,7 +19,7 @@ public:
 		{
 			// no destination name
 			std::stringstream msg;
-			msg << "Assembling instruction " << mne << " at line <" << line << ">! There is destination!";
+			msg << "Assembling instruction " << mne << " at line <" << line << ">! There is no destination!";
 			throw std::exception( msg.str().c_str() );
 		}
 
@@ -62,43 +62,96 @@ class StandardInstructionTemplate : public Instruction
 public:
 	virtual void Process( Assembler& ass,const std::string& mne,std::string& rest,int line ) const override
 	{
-		auto t = extract_token_white( rest );
-		if( !t.has_value() )
+		auto d = extract_token_white( rest );
+		if( !d.has_value() )
 		{
-			// no destination name
+			// no destination
 			std::stringstream msg;
-			msg << "Assembling instruction " << mne << " at line <" << line << ">! There is destination!";
+			msg << "Assembling instruction " << mne << " at line <" << line << ">! There is no source or destination!";
 			throw std::exception( msg.str().c_str() );
 		}
 
-		if( !is_name( t.value() ) )
+		if( !is_register_name( d.value() ) )
 		{
 			// no valid destination name
 			std::stringstream msg;
-			msg << "Assembling instruction " << mne << " at line <" << line << ">! Invalid destination of [";
-			msg << t.value() << "]!!";
+			msg << "Assembling instruction " << mne << " at line <" << line << ">! Invalid destination register name [";
+			msg << d.value() << "]!!";
 			throw std::exception( msg.str().c_str() );
 		}
 
+		if( !try_consume_comma( rest ) )
 		{
-			auto garbage = extract_token_white( rest );
-			if( garbage.has_value() )
+			std::stringstream msg;
+			msg << "Assembling instruction " << mne << " at line <" << line << ">! Expected comma (',') found [";
+			msg << extract_token_white( rest ).value_or( "" ) << "]!!";
+			throw std::exception( msg.str().c_str() );
+		}
+		
+		auto s = extract_token_white( rest );
+		if( !s.has_value() )
+		{
+			// no destination
+			std::stringstream msg;
+			msg << "Assembling instruction " << mne << " at line <" << line << ">! There is no source!";
+			throw std::exception( msg.str().c_str() );
+		}
+		
+		auto s_int_type = int_literal_type( s.value() );
+		if( s_int_type != IntLiteralType::Not ) // source is int literal
+		{
 			{
-				// garbage after the dest name
+				auto garbage = extract_token_white( rest );
+				if( garbage.has_value() )
+				{
+					// garbage after the dest name
+					std::stringstream msg;
+					msg << "Assembling instruction " << mne << " at line <" << line << ">! What is this garbage??? [";
+					msg << garbage.value() << "]!!";
+					throw std::exception( msg.str().c_str() );
+				}
+			}
+			// operate on register with int literal
+			unsigned char param_bits = 0u;
+			if( d.value() == "b" )
+			{
+				param_bits |= 0b11;
+			}
+			// emit opcode byte
+			ass.Emit( opcode_domain | param_bits );
+			// emit immediate parameter byte
+			ass.Emit( parse_int_literal( s.value(),s_int_type ) );
+		}
+		else if( is_register_name( s.value() ) ) // source is register
+		{
+			if( s == d )
+			{
+				// source may not equal destination
 				std::stringstream msg;
-				msg << "Assembling instruction " << mne << " at line <" << line << ">! What is this garbage??? [";
-				msg << garbage.value() << "]!!";
+				msg << "Assembling instruction " << mne << " at line <" << line << ">! Source cannot be same as destination!";
 				throw std::exception( msg.str().c_str() );
 			}
+
+			// operate on register with register
+			unsigned char param_bits = 0u;
+			if( d.value() == "b" )
+			{
+				param_bits |= 0b10;
+			}
+			if( s.value() == "b" )
+			{
+				param_bits |= 0b01;
+			}
+			// emit opcode byte
+			ass.Emit( opcode_domain | param_bits );
 		}
-
-		// emit opcode byte
-		ass.Emit( opcode_domain | param_bits );
-
-		// add the references
-		ass.AddLabelReference( t.value(),ass.GetAddress(),line );
-
-		// emit destination placeholder byte
-		ass.Emit( 0xEEu );
+		else // bad source name
+		{
+			// garbage after the dest name
+			std::stringstream msg;
+			msg << "Assembling instruction " << mne << " at line <" << line << ">! Bad source [";
+			msg << s.value() << "]!!";
+			throw std::exception( msg.str().c_str() );
+		}
 	}
 };

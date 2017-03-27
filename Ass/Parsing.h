@@ -20,7 +20,7 @@ inline std::optional<std::string> extract_token_white( std::string& s )
 	ltrim( s );
 	if( s.size() > 0 )
 	{
-		const auto i = std::find_if( s.begin(),s.end(),[]( char c ) { return c == ' ' || c == '\t'; } );
+		const auto i = std::find_if( s.begin(),s.end(),[]( char c ) { return std::isspace( c ) || c == ','; } );
 		if( i != s.end() )
 		{
 			auto r = std::string( s.begin(),i );
@@ -33,6 +33,25 @@ inline std::optional<std::string> extract_token_white( std::string& s )
 		}
 	}
 	return {};
+}
+
+inline bool try_consume_comma( std::string& s )
+{
+	const auto i = std::find_if( s.begin(),s.end(),[]( char c ) { return !std::isspace( c ); } );
+	if( i != s.end() )
+	{
+		if( *i == ',' )
+		{
+			s.erase( s.begin(),std::next( i ) );
+			return true;
+		}
+	}
+	return false;
+}
+
+inline bool is_register_name( const std::string& s )
+{
+	return s == "a" || s == "b";
 }
 
 enum class IntLiteralType

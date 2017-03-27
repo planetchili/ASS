@@ -5,29 +5,6 @@
 
 int main( int argc,char* argv[] )
 {
-	// testing int literal detection
-	{
-		std::string num = "31";
-		std::cout << num << ":" << std::boolalpha << parse_int_literal( num ) << std::endl;
-	}
-	{
-		std::string num = "0x31";
-		std::cout << num << ":" << std::boolalpha << parse_int_literal( num ) << std::endl;
-	}
-	{
-		std::string num = "0b011";
-		std::cout << num << ":" << std::boolalpha << parse_int_literal( num ) << std::endl;
-	}
-	{
-		std::string num = "0";
-		std::cout << num << ":" << std::boolalpha << parse_int_literal( num ) << std::endl;
-	}
-	{
-		std::string num = "00";
-		std::cout << num << ":" << std::boolalpha << parse_int_literal( num ) << std::endl;
-	}
-
-
 	std::stringstream testCode;
 	testCode << "; comment" << std::endl;
 	testCode << "label:" << std::endl;
@@ -43,6 +20,11 @@ int main( int argc,char* argv[] )
 	testCode << "jmp lobo ;this will work ;)" << std::endl;
 	testCode << "jnz label ;this will work ;)" << std::endl;
 	// testCode << "jc lobbo dd ;this will work ;)" << std::endl;
+	testCode << "add b,0x69" << std::endl;
+	testCode << "sub b,0x27" << std::endl;
+	testCode << "add a,0x21" << std::endl;
+	testCode << "sub b,a" << std::endl;
+	testCode << "mov a,0x42" << std::endl;
 
 	try
 	{

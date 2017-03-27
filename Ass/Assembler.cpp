@@ -14,4 +14,7 @@ void Assembler::RegisterOperations()
 	RegisterInstruction<ImmediateJumpTemplate<0b101>>( "jna" );
 	RegisterInstruction<ImmediateJumpTemplate<0b110>>( "jnb" );
 	RegisterAlias( "jnb","jc" );
+	RegisterInstruction<StandardInstructionTemplate<0b00011000>>( "add" );
+	RegisterInstruction<StandardInstructionTemplate<0b00010000>>( "sub" );
+	RegisterInstruction<StandardInstructionTemplate<0b00000000>>( "mov" );
 }
