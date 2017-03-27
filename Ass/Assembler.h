@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Trim.h"
 #include <iostream>
 #include <fstream>
 #include <map>
@@ -13,91 +12,11 @@
 #include <memory>
 #include <iomanip>
 #include <assert.h>
+#include "Trim.h"
 #include "Parsing.h"
-
-class Instruction
-{
-public:
-	virtual ~Instruction() = 0;
-	virtual void Process( class Assembler& ass,std::string rest,int line ) const = 0;
-	virtual const std::string& GetName() const = 0;
-	bool operator<( const Instruction& other ) const
-	{
-		return GetName() < other.GetName();
-	}
-};
-
-class Directive
-{
-public:
-	virtual ~Directive() = 0;
-	virtual void Process( class Assembler& ass,std::string rest,int line ) const = 0;
-	virtual void Process( class Assembler& ass,std::string label,std::string rest,int line ) const
-	{
-		throw std::exception( (std::string( "Directive [" ) + GetName() + "] does not support labels [" + label + "]").c_str() );
-	}
-	virtual const std::string& GetName() const = 0;
-	bool operator<( const Directive& other ) const
-	{
-		return GetName() < other.GetName();
-	}
-};
-
-class Symbol
-{
-public:
-	enum class Type
-	{
-		Label,
-		Variable
-	};
-public:
-	Symbol( Symbol&& donor )
-		:
-		name( std::move( donor.name ) ),
-		type( donor.type ),
-		address( donor.address )
-	{}
-	int GetAddress() const { return address; }
-	const std::string& GetName() const { return name; }
-	Type GetType() const
-	{
-		return type;
-	}
-	int GetLine() const
-	{
-		return line;
-	}
-	static Symbol MakeVariable( const std::string& name,int line,int address )
-	{
-		return Symbol( name,address,line,Type::Variable );
-	}
-	static Symbol MakeLabel( const std::string& name,int line,int address )
-	{
-		return Symbol( name,address,line,Type::Label );
-	}
-	bool operator<( const Symbol& other ) const
-	{
-		return name < other.name;
-	}
-	bool operator==( const Symbol& other ) const
-	{
-		return type == other.type && name == other.name;
-	}
-private:
-	Symbol( const std::string& name,int line,int address,Type type )
-		:
-		address( address ),
-		name( name ),
-		type( type ),
-		line( line )
-	{}
-private:
-	Type type;
-	int address;
-	int line;
-	std::string name;
-};
+#include "Symbol.h"
+#include "Instruction.h"
+#include "Directive.h"
 
 class Assembler
 {

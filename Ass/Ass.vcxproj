@@ -119,7 +119,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Assembler.h" />
+    <ClInclude Include="Directive.h" />
+    <ClInclude Include="Instruction.h" />
     <ClInclude Include="Parsing.h" />
+    <ClInclude Include="Symbol.h" />
     <ClInclude Include="Trim.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
