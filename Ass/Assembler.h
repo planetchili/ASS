@@ -184,7 +184,7 @@ private:
 				// add label
 				AddLabel( t.value(),GetAddress(),lineNum );
 			}
-			else if( is_name( t.value() ) )
+			else if( is_name( t.value() ) ) // could be instruction OR labeled directive
 			{
 				if( symbols.count( t.value() ) > 0 )
 				{
@@ -229,7 +229,7 @@ private:
 					}
 				}
 			}
-			else if( !is_directive( t.value() ) )
+			else if( is_directive( t.value() ) )
 			{
 				// strip off directive dot
 				t.value().erase( t.value().begin(),t.value().begin() + 1 );
