@@ -11,7 +11,7 @@ public:
 	{
 		throw std::exception( (std::string( "Directive [" ) + GetName() + "] does not support labels [" + label + "]").c_str() );
 	}
-	virtual const std::string& GetName() const = 0;
+	virtual const char* GetName() const = 0;
 	bool operator<( const Directive& other ) const
 	{
 		return GetName() < other.GetName();
