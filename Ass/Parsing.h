@@ -41,10 +41,13 @@ bool is_label( const std::string& s )
 		s.back() == ':' &&
 		!std::isdigit( s.front() ) &&
 		std::all_of( s.begin(),std::prev( s.end() ),[]( char c )
-	{
-		return std::isalnum( c ) || c == '_';
-	}
-	);
+		{
+			return std::isalnum( c ) || c == '_';
+		} ) &&
+		std::any_of( s.begin(),std::prev( s.end() ),[]( char c )
+		{
+			return std::isalnum( c );
+		} );
 }
 
 bool is_name( const std::string& s )
