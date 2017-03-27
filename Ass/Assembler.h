@@ -298,8 +298,10 @@ private:
 	template<class T>
 	void RegisterInstruction()
 	{
-		assert( instructions.count( T::name ) == 0 );
-		instructions.emplace( T::name,std::make_unique<T>() );
+		auto inst = std::make_unique<T>();
+		const char* name = inst->GetName();
+		assert( instructions.count( name ) == 0 );
+		instructions.emplace( name,std::move( inst ) );
 	}
 	template<class T>
 	void RegisterDirective()

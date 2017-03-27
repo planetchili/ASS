@@ -19,10 +19,8 @@ public:
 class JumpInstruction : public Instruction
 {
 public:
-	virtual const char* GetName() const override { return name; }
+	virtual const char* GetName() const override { return "jmp"; }
 	virtual void Process( class Assembler& ass,std::string rest,int line ) const override;
-public:
-	static constexpr char* name = "jmp";
 };
 
 
