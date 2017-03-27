@@ -169,8 +169,8 @@ private:
 				}
 				else if( instructions.count( t.value() ) > 0 )
 				{
-					// process instruction
-					instructions[t.value()]->Process( *this,std::move( line ),lineNum );
+					// process instruction (trashes line)
+					instructions[t.value()]->Process( *this,t.value(),line,lineNum );
 				}
 				else // not instruction; could be a directive...!
 				{
@@ -293,13 +293,12 @@ private:
 	}
 	void RegisterOperations();
 	template<class T,typename ... Args>
-	void RegisterInstruction( Args&& ... args )
+	void RegisterInstruction( std::string name )
 	{
-		auto inst = std::make_unique<T>( args... );
-		const char* name = inst->GetName();
 		assert( instructions.count( name ) == 0 );
-		instructions.emplace( name,std::move( inst ) );
+		instructions.emplace( name,std::make_unique<T>() );
 	}
+	void RegisterAlias( std::string main,std::string alias );
 	template<class T>
 	void RegisterDirective()
 	{

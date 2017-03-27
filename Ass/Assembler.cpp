@@ -11,3 +11,8 @@ void Assembler::RegisterOperations()
 	RegisterInstruction<ImmediateJumpTemplate<0b101>>( "jna" );
 	RegisterInstruction<ImmediateJumpTemplate<0b110>>( "jnb" );
 }
+
+void Assembler::RegisterAlias( std::string main,std::string alias )
+{
+
+}
