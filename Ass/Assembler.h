@@ -21,25 +21,20 @@
 class Assembler
 {
 public:
-	Assembler( const std::string& name )
+	Assembler( std::string name )
 	{
 		RegisterOperations();
 
 		std::ifstream file;
 		file.exceptions( std::ifstream::failbit | std::ifstream::badbit );
 		file.open( name );
+		ProcessSourceStream( file );
+	}
+	Assembler( std::istream& file )
+	{
+		RegisterOperations();
 
-		int lineNum = 0;
-		while( true )
-		{
-			std::string line;
-			file >> line;
-			if( file.eof() )
-			{
-				break;
-			}			
-			sourceLines.emplace_back( line,lineNum++ );
-		}
+		ProcessSourceStream( file );
 	}
 	void Emit( unsigned char byte )
 	{
@@ -64,7 +59,7 @@ public:
 	{
 		symbols.emplace( name,Symbol::MakeVariable( name,line,address ) );
 	}
-	void Assemble( std::string& name )
+	void Assemble( std::string name )
 	{
 		bool error = false;
 		for( auto lp : sourceLines )
@@ -137,6 +132,26 @@ private:
 	//	const int n = symbols.erase( name );
 	//	assert( n > 0 );
 	//}
+	void ProcessSourceStream( std::istream& file )
+	{
+		file.exceptions( std::ifstream::failbit | std::ifstream::badbit );
+		int lineNum = 0;
+		std::string line;
+		try
+		{
+			while( std::getline( file,line ) )
+			{
+				sourceLines.emplace_back( line,lineNum++ );
+			}
+		}
+		catch( const std::ifstream::failure& e )
+		{
+			if( !file.eof() )
+			{
+				throw e;
+			}
+		}
+	}
 	void ProcessLine( std::string& line,int lineNum )
 	{
 		strip_comment( line );
