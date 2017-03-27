@@ -204,7 +204,7 @@ private:
 							throw std::exception( msg.str().c_str() );
 						}
 						// process labeled directive
-						directives[d.value()]->Process( *this,t.value(),std::move( line ),lineNum );
+						directives[d.value()]->Process( *this,d.value(),t.value(),std::move( line ),lineNum );
 					}
 				}
 			}
@@ -220,7 +220,7 @@ private:
 					throw std::exception( msg.str().c_str() );
 				}
 				// process directive
-				directives[t.value()]->Process( *this,std::move( line ),lineNum );
+				directives[t.value()]->Process( *this,t.value(),std::move( line ),lineNum );
 			}
 			else
 			{
@@ -311,10 +311,10 @@ private:
 			instructions.find( main )->second.get() ) );
 	}
 	template<class T>
-	void RegisterDirective()
+	void RegisterDirective( std::string name )
 	{
-		assert( directives.count( T::name ) == 0 );
-		directives.emplace( T::name,T{} );
+		assert( directives.count( name ) == 0 );
+		directives.emplace( name,std::make_unique<T>() );
 	}
 private:
 	std::ostream& mout = std::cout;

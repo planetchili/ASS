@@ -1,5 +1,6 @@
 #include "Assembler.h"
 #include "InstructionImpl.h"
+#include "DirectiveImpl.h"
 
 void Assembler::RegisterOperations()
 {
@@ -17,4 +18,6 @@ void Assembler::RegisterOperations()
 	RegisterInstruction<StandardInstructionTemplate<0b00011000>>( "add" );
 	RegisterInstruction<StandardInstructionTemplate<0b00010000>>( "sub" );
 	RegisterInstruction<MoveInstruction>( "mov" );
+
+	RegisterDirective<DefineByteDirective>( "db" );
 }

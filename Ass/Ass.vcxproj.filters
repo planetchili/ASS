@@ -44,5 +44,8 @@
     <ClInclude Include="InstructionImpl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="DirectiveImpl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

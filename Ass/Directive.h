@@ -6,14 +6,9 @@ class Directive
 {
 public:
 	virtual ~Directive() {};
-	virtual void Process( class Assembler& ass,std::string rest,int line ) const = 0;
-	virtual void Process( class Assembler& ass,std::string label,std::string rest,int line ) const
+	virtual void Process( class Assembler& ass,const std::string& dir,std::string rest,int line ) const = 0;
+	virtual void Process( class Assembler& ass,const std::string& dir,std::string label,std::string rest,int line ) const
 	{
-		throw std::exception( (std::string( "Directive [" ) + GetName() + "] does not support labels [" + label + "]").c_str() );
-	}
-	virtual const char* GetName() const = 0;
-	bool operator<( const Directive& other ) const
-	{
-		return GetName() < other.GetName();
+		throw std::exception( (std::string( "Directive [" ) + dir + "] does not support labels [" + label + "]").c_str() );
 	}
 };

@@ -30,7 +30,9 @@ int main( int argc,char* argv[] )
 	testCode << "mov b,[a]" << std::endl;
 	//testCode << "mov [a],[a]" << std::endl;
 	testCode << "mov a,&var" << std::endl;
-	testCode << "mov a,&lobo" << std::endl;
+	//testCode << "mov a,&lobo" << std::endl;
+	testCode << "var .db 0x99" << std::endl;
+	testCode << ".db 0x69" << std::endl;
 
 	try
 	{
