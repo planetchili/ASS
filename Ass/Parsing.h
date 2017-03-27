@@ -130,6 +130,13 @@ inline bool is_name( const std::string& s )
 		} );
 }
 
+inline bool is_address( const std::string& s )
+{
+	return s.size() > 1 &&
+		s.front() == '&' &&
+		is_name( s.substr( 1,std::string::npos ) );
+}
+
 inline bool is_directive( const std::string& s )
 {
 	return s.size() > 1 &&
