@@ -120,6 +120,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Assembler.h" />
+    <ClInclude Include="Classify.h" />
     <ClInclude Include="Directive.h" />
     <ClInclude Include="DirectiveImpl.h" />
     <ClInclude Include="Tests.h" />

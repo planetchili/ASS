@@ -146,7 +146,8 @@ inline bool is_name( const std::string& s )
 		std::any_of( s.begin(),s.end(),[]( char c )
 		{
 			return std::isalnum( c );
-		} );
+		} ) &&
+		!is_register_name( s );
 }
 
 inline bool is_indirect( const std::string& s )
