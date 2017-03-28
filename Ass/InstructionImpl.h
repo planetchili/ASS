@@ -231,7 +231,7 @@ public:
 			throw std::exception( msg.str().c_str() );
 		}
 
-		if( !s_is_indirect || !d_is_indirect )
+		if( !(s_is_indirect || d_is_indirect) )
 		{
 			directMov.ProcessParams( ass,mne,d.value(),s.value(),line );
 		}

@@ -121,7 +121,7 @@ private:
 		ram.resize( ramsize );
 
 		file.exceptions( std::ifstream::failbit | std::ifstream::badbit );
-		int lineNum = 0;
+		int lineNum = 1;
 		std::string line;
 		try
 		{

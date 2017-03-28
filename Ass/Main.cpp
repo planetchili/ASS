@@ -1,48 +1,28 @@
 #include <iostream>
-#include <sstream>
+#include <fstream>
 #include <conio.h>
 #include "Assembler.h"
+#include "Tests.h"
 
 int main( int argc,char* argv[] )
 {
-	std::stringstream testCode;
-	testCode << "; comment" << std::endl;
-	testCode << "label:" << std::endl;
-	testCode << "   mab_3le:    " << std::endl;
-	testCode << "_1: ;comment" << std::endl;
-	testCode << "" << std::endl;
-	testCode << "def:" << std::endl;
-	testCode << "jmp label ;this will work ;)" << std::endl;
-	testCode << "jmp _1 ;this will work ;)" << std::endl;
-	// testCode << "jmp dicks ;this will not" << std::endl;
-	// testCode << "jmp label idi ;this will not" << std::endl;
-	testCode << "lobo:" << std::endl;
-	testCode << "jmp lobo ;this will work ;)" << std::endl;
-	testCode << "jnz label ;this will work ;)" << std::endl;
-	// testCode << "jc lobbo dd ;this will work ;)" << std::endl;
-	testCode << "add b  ,  0x69" << std::endl;
-	testCode << ".org 3" << std::endl;
-	//testCode << "sub b ,0x27 ad" << std::endl;
-	//testCode << "add a," << std::endl;
-	testCode << "sub b,a" << std::endl;
-	//testCode << "mov a 0x42" << std::endl;
-	//testCode << "mov [a],0x11" << std::endl;
-	testCode << "mov [a],b" << std::endl;
-	testCode << "mov b,[a]" << std::endl;
-	//testCode << "mov [a],[a]" << std::endl;
-	testCode << "mov a,&var" << std::endl;
-	//testCode << "mov a,&lobo" << std::endl;
-	testCode << "var .db 0x99" << std::endl;
-	testCode << ".db 0x69" << std::endl;
+	return test();
 
-	try
+	if( argc < 2 )
 	{
-		Assembler a( testCode );
-		a.Assemble( "out.txt" );
+		std::cout << "No input file specified!" << std::endl;
 	}
-	catch( const std::exception& e )
+	else
 	{
-		std::cout << "Fatal error: " << e.what() << std::endl;
+		try
+		{
+			Assembler a( argv[1] );
+			a.Assemble( std::string( argv[1] ) + ".txt" );
+		}
+		catch( const std::exception& e )
+		{
+			std::cout << "Fatal error: " << e.what() << std::endl;
+		}
 	}
 
 	while( !_kbhit() );

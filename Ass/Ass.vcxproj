@@ -122,6 +122,7 @@
     <ClInclude Include="Assembler.h" />
     <ClInclude Include="Directive.h" />
     <ClInclude Include="DirectiveImpl.h" />
+    <ClInclude Include="Tests.h" />
     <ClInclude Include="Instruction.h" />
     <ClInclude Include="InstructionImpl.h" />
     <ClInclude Include="Parsing.h" />
