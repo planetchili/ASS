@@ -99,10 +99,16 @@ public:
 		file.open( name );
 		file << "v2.0 raw\n";
 		int byteCount = 0;
+		int usedBytes = 0;
 		for( auto b : ram )
 		{
 			file << std::hex << std::setfill( '0' ) << std::setw( 2 )
 				<< int( b.value_or( 0 ) ) << " ";
+
+			if( b.has_value() )
+			{
+				usedBytes++;
+			}
 
 			if( ++byteCount >= 8 )
 			{
@@ -112,6 +118,8 @@ public:
 		}
 
 		mout << "Binary image successfully generated." << std::endl;
+		mout << "Bytes used: [ " << usedBytes << " ]  Bytes free: [ " 
+			<< 256 - usedBytes << " ]" << std::endl;
 	}
 
 private:
