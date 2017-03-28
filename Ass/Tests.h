@@ -8,6 +8,7 @@
 int test()
 {
 	std::stringstream testCode;
+	testCode << "bejaz .db 0x69" << std::endl;
 	testCode << "; comment" << std::endl;
 	testCode << "label:" << std::endl;
 	testCode << "mov a,[a]" << std::endl;
@@ -42,6 +43,22 @@ int test()
 	{
 		Assembler a( testCode );
 		a.Assemble( "out.txt" );
+	}
+	catch( const std::exception& e )
+	{
+		std::cout << "Fatal error: " << e.what() << std::endl;
+	}
+
+	while( !_kbhit() );
+	return 0;
+}
+
+int test2()
+{
+	try
+	{
+		Assembler a( "mul.asm" );
+		a.Assemble( "mul.txt" );
 	}
 	catch( const std::exception& e )
 	{

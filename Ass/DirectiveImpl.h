@@ -32,6 +32,7 @@ public:
 		if( p.value() == "?" )
 		{
 			ass.Emit( 0xEEu );
+			return;
 		}
 
 		const auto lit_type = int_literal_type( p.value() );
