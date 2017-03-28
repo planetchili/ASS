@@ -6,7 +6,6 @@
 
 int main( int argc,char* argv[] )
 {
-	return test2();
 	return test();
 
 	if( argc < 2 )

@@ -307,12 +307,12 @@ private:
 		if( address < 0 || address >= int( ram.size() ) )
 		{
 			std::stringstream msg;
-			msg << "Assembling address out of bounds: " << std::hex << address;
+			msg << "Assembling address out of bounds: " << std::hex << "0x" << address;
+			msg << " (" << std::dec << address << ")";
 			throw std::exception( msg.str().c_str() );
 		}
 	}
 	void RegisterOperations();
-	// validate for no instruction opcode overlap?
 	template<class T>
 	void RegisterInstruction( std::string name )
 	{

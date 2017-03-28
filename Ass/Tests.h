@@ -8,8 +8,8 @@
 int test()
 {
 	std::stringstream testCode;
-	testCode << "bejaz .db 0x69" << std::endl;
-	testCode << "; comment" << std::endl;
+	//testCode << "foo .org 89" << std::endl;
+	testCode << ".org 278" << std::endl;
 	testCode << "label:" << std::endl;
 	testCode << "mov a,[a]" << std::endl;
 	testCode << "   mab_3le:    " << std::endl;

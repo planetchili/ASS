@@ -13,7 +13,7 @@ public:
 		{
 			// no data
 			std::stringstream msg;
-			msg << "Processing directive " << dir << " at line <" << line << ">! No data!";
+			msg << "Processing directive ." << dir << " at line <" << line << ">! No data!";
 			throw std::exception( msg.str().c_str() );
 		}
 		
@@ -23,7 +23,7 @@ public:
 			if( garbage.has_value() )
 			{
 				std::stringstream msg;
-				msg << "Processing directive " << dir << " at line <" << line << ">! What is this garbage??? [";
+				msg << "Processing directive ." << dir << " at line <" << line << ">! What is this garbage??? [";
 				msg << garbage.value() << "]!!";
 				throw std::exception( msg.str().c_str() );
 			}
@@ -44,7 +44,7 @@ public:
 		{
 			// bad value
 			std::stringstream msg;
-			msg << "Processing directive " << dir << " at line <" << line << ">! What is this garbage??? [";
+			msg << "Processing directive ." << dir << " at line <" << line << ">! What is this garbage??? [";
 			msg << p.value() << "]!!";
 			throw std::exception( msg.str().c_str() );
 		}
@@ -67,7 +67,7 @@ public:
 		{
 			// no data
 			std::stringstream msg;
-			msg << "Processing directive " << dir << " at line <" << line << ">! No data!";
+			msg << "Processing directive ." << dir << " at line <" << line << ">! No data!";
 			throw std::exception( msg.str().c_str() );
 		}
 
@@ -77,7 +77,7 @@ public:
 			if( garbage.has_value() )
 			{
 				std::stringstream msg;
-				msg << "Processing directive " << dir << " at line <" << line << ">! What is this garbage??? [";
+				msg << "Processing directive ." << dir << " at line <" << line << ">! What is this garbage??? [";
 				msg << garbage.value() << "]!!";
 				throw std::exception( msg.str().c_str() );
 			}
@@ -86,7 +86,17 @@ public:
 		const auto lit_type = int_literal_type( p.value() );
 		if( lit_type != IntLiteralType::Not )
 		{
-			ass.SetAddress( parse_int_literal( p.value() ) );
+			try
+			{
+				ass.SetAddress( parse_int_literal( p.value() ) );
+			}
+			catch( const std::exception& e )
+			{
+				std::stringstream msg;
+				msg << "Processing directive ." << dir << " at line <" << line << ">! Encountered exception!" << std::endl;
+				msg << "\t" << e.what();
+				throw std::exception( msg.str().c_str() );
+			}
 		}
 		else
 		{
