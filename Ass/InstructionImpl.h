@@ -131,7 +131,18 @@ public:
 		}
 		else if( s_is_address_ref )
 		{
+			// load immediate address of variable
+			unsigned char param_bits = 0u;
+			if( d == "b" )
+			{
+				param_bits |= 0b11;
+			}
+			// emit opcode byte
+			ass.Emit( opcode_domain | param_bits );
+			// add the symbol reference that will resolve and fill the placeholder
 			ass.AddVariableReference( s,ass.GetAddress(),line );
+			// emit immediate parameter placeholder byte
+			ass.Emit( 0xEEu );
 		}
 		else if( is_register_name( s ) ) // source is register
 		{
@@ -241,16 +252,6 @@ public:
 			auto s_int_type = int_literal_type( s.value() );
 			if( s_int_type != IntLiteralType::Not ) // source is int literal
 			{
-				//// immediate source
-				//unsigned char param_bits = 0u;
-				//if( d.value() == "b" )
-				//{
-				//	param_bits |= 0b11;
-				//}
-				//// emit opcode byte
-				//ass.Emit( opcode_domain_ind_dst | param_bits );
-				//// emit immediate parameter byte
-				//ass.Emit( parse_int_literal( s.value(),s_int_type ) );
 				std::stringstream msg;
 				msg << "Assembling instruction " << mne << " at line <" << line << ">! Invalid source no literals allowed in indirect mov!! [";
 				msg << s.value() << "]!!";
