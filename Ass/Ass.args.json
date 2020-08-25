@@ -1,0 +1,14 @@
+{
+  "FileVersion": 2,
+  "Id": "d1949356-c014-4173-864d-0052e3046d2b",
+  "Items": [
+    {
+      "Id": "45e471ed-5199-4d69-b259-870d5a4ad56b",
+      "Command": "--run-tests"
+    },
+    {
+      "Id": "24d4f5d6-bb34-4a1a-afd4-177558bacca6",
+      "Command": "mul.asm"
+    }
+  ]
+}

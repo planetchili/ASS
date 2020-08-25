@@ -246,8 +246,7 @@ public:
 		{
 			directMov.ProcessParams( ass,mne,d.value(),s.value(),line );
 		}
-
-		if( d_is_indirect ) // store to memory indirect
+		else if( d_is_indirect ) // store to memory indirect
 		{
 			auto s_int_type = int_literal_type( s.value() );
 			if( s_int_type != IntLiteralType::Not ) // source is int literal
