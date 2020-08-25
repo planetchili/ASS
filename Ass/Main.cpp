@@ -6,11 +6,13 @@
 
 int main( int argc,char* argv[] )
 {
-	//return run_tests();
-
 	if( argc < 2 )
 	{
 		std::cout << "No input file specified!" << std::endl;
+	}
+	else if( std::string{ argv[1] } == "--run-tests" )
+	{
+		run_tests();
 	}
 	else
 	{
