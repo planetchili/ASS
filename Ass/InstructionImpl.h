@@ -60,7 +60,7 @@ class StandardInstructionTemplate : public Instruction
 {
 	static_assert((opcode_domain & 0b11u) == 0u,"bad opcode domain bits in std inst");
 public:
-	virtual void Process( Assembler& ass,const std::string& mne,std::string& rest,int line ) const override
+	void Process( Assembler& ass,const std::string& mne,std::string& rest,int line ) const override
 	{
 		auto d = extract_token_white( rest );
 		if( !d.has_value() )
@@ -297,4 +297,27 @@ public:
 	}
 private:
 	StandardInstructionTemplate<0b00000000> directMov;
+};
+
+template<unsigned char opcode>
+class SimpInstructionTemplate : public Instruction
+{
+public:
+	void Process( Assembler& ass,const std::string& mne,std::string& rest,int line ) const override
+	{
+		// check for garbage after mnemonic
+		{
+			auto garbage = extract_token_white( rest );
+			if( garbage.has_value() )
+			{
+				// garbage after the dest name
+				std::stringstream msg;
+				msg << "Assembling instruction " << mne << " at line <" << line << ">! What is this garbage??? [";
+				msg << garbage.value() << "]!!";
+				throw std::exception( msg.str().c_str() );
+			}
+		}
+
+		ass.Emit( opcode );
+	}
 };

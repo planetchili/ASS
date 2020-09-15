@@ -18,6 +18,7 @@ void Assembler::RegisterOperations()
 	RegisterInstruction<StandardInstructionTemplate<0b00011000>>( "add" );
 	RegisterInstruction<StandardInstructionTemplate<0b00010000>>( "sub" );
 	RegisterInstruction<MoveInstruction>( "mov" );
+	RegisterInstruction<SimpInstructionTemplate<0b00101000>>( "nop" );
 
 	RegisterDirective<DefineByteDirective>( "db" );
 	RegisterDirective<OriginDirective>( "org" );
